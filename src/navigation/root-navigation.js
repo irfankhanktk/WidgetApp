@@ -5,6 +5,10 @@ import {StatusBar, StyleSheet, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Splash from 'screens/splash';
 import {horizontalAnimation} from '../utils';
+import Origns from 'screens/Origns';
+import Products from 'screens/products';
+import Organizations from 'screens/Organizations';
+import ProductDetails from 'screens/product-details';
 const Stack = createNativeStackNavigator();
 
 export const RootNavigator = () => {
@@ -20,6 +24,10 @@ export const RootNavigator = () => {
         initialRouteName="Splash"
         screenOptions={horizontalAnimation}>
         <Stack.Screen name="Splash" component={Splash} />
+        <Stack.Screen name="Origns" component={Origns} />
+        <Stack.Screen name="Organizations" component={Organizations} />
+        <Stack.Screen name="Products" component={Products} />
+        <Stack.Screen name="ProductDetails" component={ProductDetails} />
       </Stack.Navigator>
     </View>
   );
