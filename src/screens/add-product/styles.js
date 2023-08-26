@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   flatlistContainer: {
-    borderColor: colors.primary,
+    borderColor: 'red',
     borderWidth: 1,
     marginTop: 10,
     flexDirection: 'row',

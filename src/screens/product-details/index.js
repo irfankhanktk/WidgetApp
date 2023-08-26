@@ -10,57 +10,53 @@ import {SearchInput} from 'components/atoms/inputs';
 import {PrimaryButton} from 'components/atoms/buttons';
 import {navigate} from 'navigation/navigation-ref';
 import AppHeader from 'components/atoms/headers/app-header';
+import {Row} from 'components/atoms/row';
 
-const ProductDetails = () => {
-  const data = [
-    {
-      id: 1,
-      productName: 'SmartGear Watch',
-      productDescription:
-        'The SmartGear Watch is a stylish and feature-packed wearable device that keeps you connected, tracks your health and fitness',
-    },
-    {
-      id: 2,
-      productName: 'EcoTech Blender',
-      productDescription:
-        'The EcoTech Blender is a powerful kitchen appliance designed for eco-conscious individuals.',
-    },
-    {
-      id: 3,
-      productName: 'ProFit Gym Kit',
-      productDescription:
-        'The ProFit Gym Kit is the ultimate fitness companion, including premium workout gear.',
-    },
-  ];
-  const renderProducts = ({item}) => {
-    return (
-      <View style={styles.flatlistContainer}>
-        <View style={{flex: 1}}>
-          <Bold label={'Id :'} />
-          <Regular label={'productName :'} />
-          <Regular label={'productDescription :'} />
-        </View>
-        <View style={{flex: 1}}>
-          <Bold label={item?.id} />
-          <Regular label={item?.productName} />
-          <Regular numberOfLines={3} label={item?.productDescription} />
-        </View>
-      </View>
-    );
-  };
-
+const ProductDetails = ({props}) => {
+  const data = props;
+  console.log('dara=====>', data);
   return (
     <View style={styles.container}>
       <AppHeader title={'Product Details'} back />
-      <CustomFlatList
-        showsVerticalScrollIndicator={false}
-        data={data}
-        renderItem={renderProducts}
-        contentContainerStyle={{
-          paddingBottom: mvs(20),
+      <View
+        style={{
           paddingHorizontal: mvs(20),
-        }}
-      />
+        }}>
+        <Row
+          style={{
+            borderWidth: 1,
+            padding: mvs(10),
+            borderRadius: mvs(10),
+            borderColor: colors.primary,
+          }}>
+          <View>
+            <Bold label={'Id'} />
+            <Regular style={{marginTop: 10}} label={'Name'} />
+            <Regular style={{marginTop: 10}} label={'Description'} />
+          </View>
+          <View style={{flex: 1, marginLeft: mvs(30)}}>
+            <Bold label={'2'} />
+            <Regular style={{marginTop: 10}} label={'ProFit Gym Kit'} />
+            <Regular
+              style={{marginTop: 10}}
+              numberOfLines={3}
+              label={
+                'The ProFit Gym Kit is the ultimate fitness companion, including premium workout gear.'
+              }
+            />
+          </View>
+        </Row>
+        <PrimaryButton
+          onPress={() => navigate('AddProduct')}
+          containerStyle={{marginTop: mvs(40)}}
+          title="Edit Product"
+        />
+        <PrimaryButton
+          containerStyle={{marginTop: mvs(10)}}
+          title="Delete Product"
+        />
+        {/* <PrimaryButton containerStyle={{marginTop: mvs(10)}} title='' /> */}
+      </View>
     </View>
   );
 };

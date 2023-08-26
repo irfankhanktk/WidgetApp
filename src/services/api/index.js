@@ -1,8 +1,6 @@
 import {UTILS} from 'utils';
 import {URLS} from 'services/api/api-urls';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {STORAGEKEYS} from 'config/constants';
 export const postData = async (url, data) => {
   console.log('url: ', url);
   console.log('data: ', data);
@@ -23,7 +21,6 @@ export const postFormData = async (url, data) => {
   console.log('url==>', url);
 
   data = UTILS.getFormData(data);
-  const token = await AsyncStorage.getItem(STORAGEKEYS.token);
   return axios
     .post(URLS.base_url + url, data, {
       headers: {
@@ -38,7 +35,6 @@ export const postFormData = async (url, data) => {
 };
 export const postImage = async (url, data) => {
   try {
-    const token = await AsyncStorage.getItem(STORAGEKEYS.token);
     console.log('`${URLS.base_url}${url}`', `${URLS.base_url}${url}`);
     const response = await fetch(`${URLS.base_url}${url}`, {
       headers: {

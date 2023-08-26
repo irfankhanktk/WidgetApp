@@ -67,7 +67,7 @@ const Origns = () => {
       <View style={styles.btnContainer}>
         <PrimaryButton
           onPress={() => navigate('Organizations')}
-          title={'Regions'}
+          title={'Organization'}
         />
       </View>
     </View>

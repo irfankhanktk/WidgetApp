@@ -30,6 +30,24 @@ const Products = () => {
       productDescription:
         'The ProFit Gym Kit is the ultimate fitness companion, including premium workout gear.',
     },
+    {
+      id: 3,
+      productName: 'ProFit Gym Kit',
+      productDescription:
+        'The ProFit Gym Kit is the ultimate fitness companion, including premium workout gear.',
+    },
+    {
+      id: 3,
+      productName: 'ProFit Gym Kit',
+      productDescription:
+        'The ProFit Gym Kit is the ultimate fitness companion, including premium workout gear.',
+    },
+    {
+      id: 3,
+      productName: 'ProFit Gym Kit',
+      productDescription:
+        'The ProFit Gym Kit is the ultimate fitness companion, including premium workout gear.',
+    },
   ];
   const renderProducts = ({item}) => {
     return (
@@ -65,12 +83,13 @@ const Products = () => {
           paddingHorizontal: mvs(20),
         }}
       />
-      {/* <View style={styles.btnContainer}>
+      <View style={styles.btnContainer}>
         <PrimaryButton
-          onPress={() => navigate('Products')}
-          title={'Organizations'}
+          containerStyle={{borderRadius: 30, width: 60, height: 60}}
+          onPress={() => navigate('AddProduct')}
+          title={'+'}
         />
-      </View> */}
+      </View>
     </View>
   );
 };

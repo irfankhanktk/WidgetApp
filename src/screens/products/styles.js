@@ -18,9 +18,11 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     flex: 1,
-    justifyContent: 'flex-end',
+    right: mvs(20),
     paddingHorizontal: mvs(20),
-    marginBottom: mvs(30),
+    alignItems: 'flex-end',
+    position: 'absolute',
+    bottom: 50,
   },
 });
 export default styles;

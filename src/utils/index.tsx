@@ -63,7 +63,7 @@ export const UTILS = {
       const temp = JSON.parse(_response);
       const resp = getErrorList(temp);
       console.log('ASDFGFDSDF:::', resp);
-      return (resp)
+      return `${resp}`
     }
     else if (error.response) {
       // The request was made and the server responded with a status code
@@ -89,9 +89,9 @@ export const UTILS = {
     console.log('type of code: ', error?.code);
     console.log('type of message: ', error?.message);
     if (typeof error === 'string') {
-      return error;
+      return `${error}`;
     }
-    return error?.message || error?.code;
+    return `${error?.message || error?.code}`;
   },
   capitalizeFirst: (str: string) =>
     str?.charAt(0)?.toUpperCase() + str?.slice(1),

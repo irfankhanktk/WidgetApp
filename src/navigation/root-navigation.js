@@ -9,6 +9,7 @@ import Origns from 'screens/Origns';
 import Products from 'screens/products';
 import Organizations from 'screens/Organizations';
 import ProductDetails from 'screens/product-details';
+import AddProduct from 'screens/add-product';
 const Stack = createNativeStackNavigator();
 
 export const RootNavigator = () => {
@@ -28,6 +29,7 @@ export const RootNavigator = () => {
         <Stack.Screen name="Organizations" component={Organizations} />
         <Stack.Screen name="Products" component={Products} />
         <Stack.Screen name="ProductDetails" component={ProductDetails} />
+        <Stack.Screen name="AddProduct" component={AddProduct} />
       </Stack.Navigator>
     </View>
   );
