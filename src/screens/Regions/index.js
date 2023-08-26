@@ -10,8 +10,22 @@ import {SearchInput} from 'components/atoms/inputs';
 import {PrimaryButton} from 'components/atoms/buttons';
 import {navigate} from 'navigation/navigation-ref';
 import AppHeader from 'components/atoms/headers/app-header';
+import {getRegions} from 'services/api/api-actions';
 
-const Origns = () => {
+const Regions = () => {
+  const [region, setRegion] = React.useState([]);
+  React.useEffect(() => {
+    (async () => {
+      try {
+        const res = await getRegions();
+        console.log(res);
+        setRegion(res);
+      } catch (error) {
+        console.log('Error in getRegions====>', error);
+      }
+    })();
+  }, []);
+
   const data = [
     {
       id: 1,
@@ -73,4 +87,4 @@ const Origns = () => {
     </View>
   );
 };
-export default Origns;
+export default Regions;
