@@ -7,6 +7,7 @@ import { View } from 'react-native';
 import RootStackParamList from '../../types/navigation-types/root-stack';
 import styles from './styles';
 import { navigate } from 'navigation/navigation-ref';
+import Regular from 'typography/regular-text';
 type props = NativeStackScreenProps<RootStackParamList, 'Splash'>;
 
 const Splash = (props: props) => {
@@ -21,7 +22,7 @@ const Splash = (props: props) => {
 
   return (
     <View style={{ ...styles.container }}>
-      <SplashIcon width={width - mvs(60)} />
+      <Regular label={'Welcome'} />
     </View>
   );
 };

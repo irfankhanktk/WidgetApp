@@ -46,11 +46,9 @@ const AppHeader: FC<AppHeaderProps> = ({
           )}
         </TouchableOpacity>
 
-        {title ? (
-          <Medium fontSize={mvs(20)} label={title} style={[styles.title]} />
-        ) : (
-          <></>
-        )}
+
+        <Medium fontSize={mvs(20)} label={`${title}`} style={[styles.title]} />
+        <View />
       </Row>
     </View>
   );

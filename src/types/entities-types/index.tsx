@@ -14,7 +14,7 @@ export type Region = {
 export interface RegionCardProps {
   item: Region;
   index?: number
-  onPress: () => void
+  onPress?: () => void
 }
 export type Organization = {
   id?: number
@@ -25,14 +25,30 @@ export type Organization = {
 export interface OrganizationCardProps {
   item: Organization;
   index?: number
+  onPress?: () => void
 }
 export type Product = {
   id?: number
   productName?: string
   productDescription?: string
+  organizationId?: number
 }
 
 export interface ProductCardProps {
   item: Product;
   index?: number
+  onPress?: () => void
+}
+
+export interface IProductList {
+  list: Product[];
+  totalRecords: number
+}
+export interface IOrganizationList {
+  list: Organization[];
+  totalRecords: number
+}
+export interface IRegionList {
+  list: Region[];
+  totalRecords: number
 }

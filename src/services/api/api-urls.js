@@ -4,11 +4,11 @@ export const URLS = {
   get_regions: 'region/paged',
   get_organizations: 'Organization/paged',
   product: {
-    add_product: 'product/addProduct',
-    get_products: 'api/Product/paged',
-    get_product: 'product/getProduct',
-    update_product: 'product/updateProduct',
-    delete_product: 'product/deleteProduct',
+    add_product: 'product',
+    get_products: 'product/paged',
+    get_product: 'product/',
+    update_product: 'product/',
+    delete_product: 'product/',
   },
-  get_widget_data: 'getWidgetData',
+  get_widget_data: 'region/convert?',
 };

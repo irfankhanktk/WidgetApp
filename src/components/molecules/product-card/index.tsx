@@ -2,13 +2,13 @@ import { colors } from 'config/colors';
 import { mvs } from 'config/metrices';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { RegionCardProps } from 'types/entities-types';
+import { ProductCardProps } from 'types/entities-types';
 import Bold from 'typography/bold-text';
 import Regular from 'typography/regular-text';
 
 
 
-const RegionCard = ({ item, onPress }: RegionCardProps) => {
+const ProductCard = ({ item, onPress }: ProductCardProps) => {
     return (
         <TouchableOpacity onPress={onPress} style={styles.container}>
             <View style={styles.innerContainer}>
@@ -18,8 +18,8 @@ const RegionCard = ({ item, onPress }: RegionCardProps) => {
             </View>
             <View style={styles.innerContainer}>
                 <Bold label={`${item?.id}`} />
-                <Regular label={item?.regionName} />
-                <Regular numberOfLines={3} label={item?.regionDescription} />
+                <Regular label={item?.productName} />
+                <Regular numberOfLines={3} label={item?.productDescription} />
             </View>
         </TouchableOpacity>
     );
@@ -42,4 +42,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default RegionCard;
+export default ProductCard;

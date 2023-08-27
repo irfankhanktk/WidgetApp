@@ -1,21 +1,22 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {colors} from 'config/colors';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { colors } from 'config/colors';
 import * as React from 'react';
-import {StatusBar, StyleSheet, View} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { StatusBar, StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Splash from 'screens/splash';
-import {horizontalAnimation} from '../utils';
+import { horizontalAnimation } from '../utils';
 import Products from 'screens/products';
 import Organizations from 'screens/Organizations';
 import ProductDetails from 'screens/product-details';
 import AddProduct from 'screens/add-product';
-import Regions from 'screens/Regions';
-const Stack = createNativeStackNavigator();
+import Regions from 'screens/regions';
+import RootStackParamList from 'types/navigation-types/root-stack';
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootNavigator = () => {
   const insets = useSafeAreaInsets();
   return (
-    <View style={{...styles.container, paddingTop: insets.top}}>
+    <View style={{ ...styles.container, paddingTop: insets.top }}>
       <StatusBar
         translucent={false}
         backgroundColor={colors.white}
@@ -36,5 +37,5 @@ export const RootNavigator = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {flex: 1},
+  container: { flex: 1 },
 });

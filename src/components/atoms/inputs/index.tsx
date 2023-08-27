@@ -8,6 +8,7 @@ import {
   StyleSheet,
   TextInput,
   TextInputFocusEventData,
+  TextInputSubmitEditingEventData,
   TouchableOpacity,
   View,
   ViewStyle,
@@ -23,6 +24,7 @@ import Regular from 'typography/regular-text';
 import { Row } from '../row';
 type Item = { label: string; value: string };
 type props = {
+  onSubmitEditing?: ((e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => void) | undefined
   isRequired?: boolean;
   onChangeText: (text: string) => void;
   onPress?: () => void;
@@ -234,7 +236,9 @@ export const SearchInput = (props: props) => {
     onBlur,
     mtop,
     editable,
+    onSubmitEditing,
     disabledSearch = true,
+
   } = props;
   return (
     <View
@@ -250,17 +254,12 @@ export const SearchInput = (props: props) => {
         onBlur={onBlur}
         keyboardType={keyboardType}
         value={value}
+        onSubmitEditing={onSubmitEditing}
         placeholder={placeholder}
         placeholderTextColor={`${colors.halfGray}`}
         onChangeText={onChangeText}
         style={[styles.searchTextInput, style]}
       />
-      {/* <TouchableOpacity
-        disabled={disabledSearch}
-        style={styles.searchIcon}
-        onPress={() => { }}>
-        <Image source={menue} style={{ height: mvs(15), width: mvs(25) }} />
-      </TouchableOpacity> */}
     </View>
   );
 };

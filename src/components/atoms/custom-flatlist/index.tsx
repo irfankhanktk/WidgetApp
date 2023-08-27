@@ -14,8 +14,8 @@ interface CustomFlatListProps<T> extends Omit<FlatListProps<T>, 'keyExtractor' |
 const CustomFlatList = <T,>({ keyExtractor, renderItem, emptyList, contentContainerStyle, ...props }: CustomFlatListProps<T>) => {
     const defaultKeyExtractor = (item: T, index: number) => index.toString();
     const defaultContentContainerStyle: ViewStyle = {
-        // flexGrow: 1,
-        // paddingBottom: mvs(100),
+        flexGrow: 1,
+        paddingBottom: mvs(100),
     };
     const mergedProps = {
         ...props,

@@ -16,54 +16,40 @@ import { UTILS } from 'utils';
 import { getWidgetData } from 'services/api/api-actions';
 
 LogBox.ignoreAllLogs(true);
-
-const API_KEY = '';
-const BASE_URL = 'https://api.apilayer.com/exchangerates_data';
 const { RNSharedWidget } = NativeModules;
 
 export const App: FC = () => {
-  const [from, setFrom] = useState('EUR');
-  const [to, setTo] = useState('USD');
-  const [amount, setAmount] = useState('100');
-  const [loading, setLoading] = useState(false);
-  const [focusItem, setFocusItem] = useState('');
-
-  const [result, setResult] = useState('0');
 
   useEffect(() => {
-
-    //Implementing the setInterval method
     const interval = setInterval(() => {
       getData();
     }, 60000);
 
-    //Clearing the interval
     return () => clearInterval(interval);
   }, []);
 
   const getData = async () => {
-    // getWidgetData().then(res => {
-    //   RNSharedWidget.setData(
-    //     'convertorMonex',
-    //     JSON.stringify({
-    //       from: res?.from,
-    //       to: res?.to,
-    //       amount: res?.amount,
-    //       result: res?.result,
-    //     }),
-    //     (_status: number | null) => {
-    //       // log callback in case of success/error
-    //     }
-    //   );
-    // }).catch((e) => {
-    // Alert.alert('Widget Error', UTILS.returnError(e));
-    // })
+    getWidgetData().then(res => {
+      console.log('res::::::::', res);
+
+      RNSharedWidget.setData(
+        'convertorMonex',
+        JSON.stringify({
+          from: res?.fromCurrency,
+          to: res?.toCurrency,
+          amount: res?.amount,
+          result: res?.result,
+        }),
+        (_status: number | null) => {
+          console.log('ksfjs:::', _status);
+
+          // log callback in case of success/error
+        }
+      );
+    }).catch((e) => {
+      Alert.alert('Widget Error', UTILS.returnError(e));
+    })
   };
-
-  const onSubmit = () => {
-
-  };
-
 
 
   return (

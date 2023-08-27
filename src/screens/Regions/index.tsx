@@ -1,4 +1,4 @@
-import { PrimaryButton } from 'components/atoms/buttons';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import CustomFlatList from 'components/atoms/custom-flatlist';
 import AppHeader from 'components/atoms/headers/app-header';
 import { SearchInput } from 'components/atoms/inputs';
@@ -6,19 +6,22 @@ import { Loader } from 'components/atoms/loader';
 import RegionCard from 'components/molecules/region-card';
 import { mvs } from 'config/metrices';
 import { navigate } from 'navigation/navigation-ref';
-import React, { useState, useEffect } from 'react';
-import { Alert, FlatList, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Alert, RefreshControl, View } from 'react-native';
 import { getRegions } from 'services/api/api-actions';
-import styles from './styles';
-import { Region, RegionCardProps } from 'types/entities-types';
+import { IRegionList, RegionCardProps } from 'types/entities-types';
+import RootStackParamList from 'types/navigation-types/root-stack';
 import { UTILS } from 'utils';
+import styles from './styles';
 
 const PAGE_SIZE = 10; // Number of items per page
+type props = NativeStackScreenProps<RootStackParamList, 'Regions'>;
 
-const Regions = () => {
-  const [regions, setRegions] = useState<Region[]>([]);
+const Regions = (props: props) => {
+  const [regions, setRegions] = useState<IRegionList | null>();
   const [loading, setLoading] = useState(true);
   const [pageLoading, setPageLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -28,12 +31,11 @@ const Regions = () => {
       let pageNo = isQueryChanged ? 1 : pageNumber
       const res = await getRegions(pageNo, PAGE_SIZE, searchQuery);
       console.log('loading');
-      setRegions(prevRegions => pageNo > 1 ? [...prevRegions, ...res] : res);
+      setRegions(prevRegions => pageNo > 1 ? { ...prevRegions, list: prevRegions?.list ? [...prevRegions?.list, ...res?.list] : [...res?.list] } : res);
     } catch (error) {
       console.log('Error in getRegions====>', error);
       Alert.alert('Region Error', UTILS.returnError(error))
     } finally {
-      Alert.alert('kskj')
       setDataLoading(false);
     }
   };
@@ -46,30 +48,22 @@ const Regions = () => {
     fetchRegions(true, setLoading);
   }, []);
 
-  console.log(regions?.length);
 
   const handleLoadMore = () => {
+    const lastPage = Math.ceil((regions?.totalRecords || 0) / PAGE_SIZE);
+    console.log('lastPage::', lastPage);
 
-    console.log('regions?.length % PAGE_SIZE', regions?.length % PAGE_SIZE);
-
-    if (loading || pageLoading) return;
-    console.log('regions?.length % PAGE_SIZE', regions?.length % PAGE_SIZE);
-
-    const isLoadMore = regions?.length % PAGE_SIZE == 0;
-    if (isLoadMore) {
-      Alert.alert('Loadmore')
+    if (!loading && !pageLoading && pageNumber < lastPage) {
       setPageNumber(prevPageNumber => prevPageNumber + 1);
-      setPageLoading(true);
     }
   };
-  console.log('pageLoading:::', pageLoading);
 
   const handleSearch = (text: string) => {
     setSearchQuery(text);
   };
 
   const renderItem = ({ item, index }: RegionCardProps) => {
-    return <RegionCard onPress={() => navigate('Organizations')} item={item} />;
+    return <RegionCard onPress={() => navigate('Organizations', { id: item?.id })} item={item} />;
   };
 
   return (
@@ -80,10 +74,13 @@ const Regions = () => {
       ) : (
         <View style={{ flex: 1 }}>
           <View style={{ paddingHorizontal: mvs(20) }}>
-            <SearchInput value={searchQuery} onChangeText={handleSearch} placeholder="Search Regions" />
+            <SearchInput onSubmitEditing={() => fetchRegions(true, setLoading)} value={searchQuery} onChangeText={handleSearch} placeholder="Search Regions" />
           </View>
-          <FlatList
-            data={regions}
+          <CustomFlatList
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={() => fetchRegions(true, setRefreshing)} />
+            }
+            data={regions?.list || []}
             renderItem={renderItem}
             onEndReached={handleLoadMore} // Load more when reaching the end of the list
             // onEndReachedThreshold={0.5} // Load more when the user reaches the last 50% of the list
@@ -91,7 +88,7 @@ const Regions = () => {
               paddingBottom: mvs(20),
               paddingHorizontal: mvs(20),
             }}
-            ListFooterComponent={pageLoading && <Loader />}
+            ListFooterComponent={pageLoading ? <Loader /> : <></>}
           />
 
         </View>
