@@ -2,5 +2,13 @@ import { getData } from './';
 import { URLS } from './api-urls';
 
 export const getWidgetData = () => getData(URLS.get_widget_data);
-export const getRegions = () => getData(URLS.get_regions);
+export const getRegions = (pageNumber = 1, pageSize = 10, searchQuery?: string) => {
+    // let url = `${URLS.get_regions}?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+    // if (searchQuery) {
+    //     url += `&searchQuery=${searchQuery}`;
+    // }
+    // return getData(url);
+    return new Array(10).fill({})
+};
+
 export const getOrganizations = (searchTerm?: string, pageNumber?: number) => getData(`${URLS.get_organizations}`);

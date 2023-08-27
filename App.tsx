@@ -42,22 +42,22 @@ export const App: FC = () => {
   }, []);
 
   const getData = async () => {
-    getWidgetData().then(res => {
-      RNSharedWidget.setData(
-        'convertorMonex',
-        JSON.stringify({
-          from: res?.from,
-          to: res?.to,
-          amount: res?.amount,
-          result: res?.result,
-        }),
-        (_status: number | null) => {
-          // log callback in case of success/error
-        }
-      );
-    }).catch((e) => {
-      // Alert.alert('Widget Error', UTILS.returnError(e));
-    })
+    // getWidgetData().then(res => {
+    //   RNSharedWidget.setData(
+    //     'convertorMonex',
+    //     JSON.stringify({
+    //       from: res?.from,
+    //       to: res?.to,
+    //       amount: res?.amount,
+    //       result: res?.result,
+    //     }),
+    //     (_status: number | null) => {
+    //       // log callback in case of success/error
+    //     }
+    //   );
+    // }).catch((e) => {
+    // Alert.alert('Widget Error', UTILS.returnError(e));
+    // })
   };
 
   const onSubmit = () => {

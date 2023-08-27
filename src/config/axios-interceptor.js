@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { URLS } from 'services/api/api-urls';
-import { UTILS } from '../utils';
-import { STORAGEKEYS } from './constants';
-import { navigate } from 'navigation/navigation-ref';
+import {URLS} from 'services/api/api-urls';
+import {UTILS} from '../utils';
+import {STORAGEKEYS} from './constants';
+import {navigate} from 'navigation/navigation-ref';
 const CancelToken = axios.CancelToken;
 source = CancelToken.source();
 client = axios.create({
@@ -16,8 +16,8 @@ function newAbortSignal(timeoutMs) {
 //Axios Interceptors
 client.interceptors.request.use(
   async config => {
-    let token = await UTILS.getItem(STORAGEKEYS.token);
-    console.log('token->>>', token);
+    // let token = await UTILS.getItem(STORAGEKEYS.token);
+    // console.log('token->>>', token);
     config.headers = {
       Accept: 'application/json',
       'Cache-Control': 'no-cache',
@@ -26,13 +26,13 @@ client.interceptors.request.use(
     // config.signal = newAbortSignal(15000),
     config.params = config.params || {};
     config.cancelToken = source.token || {};
-    config.headers['Authorization'] = `Bearer ${token}`;
+    // config.headers['Authorization'] = `Bearer ${token}`;
     return config;
   },
   error => {
     console.log('I am here');
     Promise.reject(error);
-  },
+  }
 );
 
 client.interceptors.response.use(
@@ -53,5 +53,5 @@ client.interceptors.response.use(
       //await DIVIY_API.refreshToken(JSON.parse(token)?.refresh_token);
     }
     return Promise.reject(error);
-  },
+  }
 );

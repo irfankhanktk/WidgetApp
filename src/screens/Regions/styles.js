@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   btnContainer: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'flex-end',
     paddingHorizontal: mvs(20),
     marginBottom: mvs(30),

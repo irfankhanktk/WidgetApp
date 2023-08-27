@@ -13,7 +13,7 @@ const Splash = (props: props) => {
   const { navigation } = props;
   React.useEffect(() => {
     setTimeout(() => {
-      navigate('Regions');
+      navigation?.replace('Regions');
     }, 2000);
   }, [])
 

@@ -1,7 +1,7 @@
 export const IP = 'http://124.29.208.60:5159';
 export const URLS = {
-  base_url: `${IP}/api/`,
-  get_regions: 'regions/getRegions',
+  base_url: `http://irfankhanktk-001-site1.atempurl.com/api`,
+  get_regions: 'region/paged',
   get_organizations: 'organization/getOrganizations',
   product: {
     add_product: 'product/addProduct',

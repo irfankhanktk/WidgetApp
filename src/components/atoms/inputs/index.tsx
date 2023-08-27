@@ -220,7 +220,6 @@ export const CommentInput = (props: props) => {
 
 
 export const SearchInput = (props: props) => {
-  const [secure, setSecure] = useState(true);
   const {
     onChangeText,
     value,
