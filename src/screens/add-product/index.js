@@ -1,15 +1,10 @@
-import CustomFlatList from 'components/atoms/custom-flatlist';
+import {PrimaryButton} from 'components/atoms/buttons';
+import AppHeader from 'components/atoms/headers/app-header';
+import PrimaryInput from 'components/atoms/inputs';
 import {mvs} from 'config/metrices';
 import React from 'react';
-import {View, Text} from 'react-native';
-import Bold from 'typography/bold-text';
-import Regular from 'typography/regular-text';
+import {View} from 'react-native';
 import styles from './styles';
-import {colors} from 'config/colors';
-import PrimaryInput from 'components/atoms/inputs';
-import {PrimaryButton} from 'components/atoms/buttons';
-import {navigate} from 'navigation/navigation-ref';
-import AppHeader from 'components/atoms/headers/app-header';
 
 const AddProduct = () => {
   return (

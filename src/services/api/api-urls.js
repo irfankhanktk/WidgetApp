@@ -4,7 +4,7 @@ export const URLS = {
   get_regions: 'region/paged',
   get_organizations: 'Organization/paged',
   product: {
-    add_product: 'product/addProduct',
+    add_product: 'api/Product',
     get_products: 'api/Product/paged',
     get_product: 'product/getProduct',
     update_product: 'product/updateProduct',
