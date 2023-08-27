@@ -15,3 +15,23 @@ export interface RegionCardProps {
   item: Region;
   index?: number
 }
+export type Organization = {
+  id?: number
+  orgName?: string
+  orgDescription?: string
+}
+
+export interface OrganizationCardProps {
+  item: Organization;
+  index?: number
+}
+export type Product = {
+  id?: number
+  productName?: string
+  productDescription?: string
+}
+
+export interface ProductCardProps {
+  item: Product;
+  index?: number
+}
