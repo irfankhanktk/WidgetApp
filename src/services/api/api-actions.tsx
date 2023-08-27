@@ -11,12 +11,11 @@ export const getRegions = (pageNumber = 1, pageSize = 10, searchQuery?: string) 
     // return new Array(10).fill({})
 };
 export const getOrganizations = (pageNumber = 1, pageSize = 10, searchQuery?: string) => {
-    // let url = `${URLS.get_organizations}?pageNumber=${pageNumber}&pageSize=${pageSize}`;
-    // if (searchQuery) {
-    //     url += `&searchQuery=${searchQuery}`;
-    // }
-    // return getData(url);
-    return new Array(10).fill({})
+    let url = `${URLS.get_organizations}?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+    if (searchQuery) {
+        url += `&searchQuery=${searchQuery}`;
+    }
+    return getData(url);
 };
 export const getProducts = (pageNumber = 1, pageSize = 10, searchQuery?: string) => {
     // let url = `${URLS.product.get_products}?pageNumber=${pageNumber}&pageSize=${pageSize}`;
