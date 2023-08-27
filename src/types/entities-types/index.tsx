@@ -14,6 +14,7 @@ export type Region = {
 export interface RegionCardProps {
   item: Region;
   index?: number
+  onPress: () => void
 }
 export type Organization = {
   id?: number

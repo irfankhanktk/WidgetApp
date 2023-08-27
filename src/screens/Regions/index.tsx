@@ -25,46 +25,51 @@ const Regions = () => {
   const fetchRegions = async (isQueryChanged: boolean, setDataLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
     try {
       setDataLoading(true);
-      if (isQueryChanged && pageNumber !== 1) {
-        setPageNumber(1);
-      }
       let pageNo = isQueryChanged ? 1 : pageNumber
       const res = await getRegions(pageNo, PAGE_SIZE, searchQuery);
+      console.log('loading');
       setRegions(prevRegions => pageNo > 1 ? [...prevRegions, ...res] : res);
     } catch (error) {
       console.log('Error in getRegions====>', error);
       Alert.alert('Region Error', UTILS.returnError(error))
     } finally {
+      Alert.alert('kskj')
       setDataLoading(false);
     }
   };
 
   useEffect(() => {
-    if (pageNumber > 1 && !pageLoading) { fetchRegions(false, setPageLoading); }
+    if (pageNumber > 1) { fetchRegions(false, setPageLoading); }
   }, [pageNumber]);
 
   useEffect(() => {
     fetchRegions(true, setLoading);
-  }, [searchQuery]);
+  }, []);
 
   console.log(regions?.length);
 
   const handleLoadMore = () => {
-    // if (loading || pageLoading) return;
-    // console.log('regions?.length % PAGE_SIZE', regions?.length % PAGE_SIZE);
 
-    // const isLoadMore = regions?.length % PAGE_SIZE == 0;
-    // if (isLoadMore) {
-    //   setPageNumber(prevPageNumber => prevPageNumber + 1);
-    // }
+    console.log('regions?.length % PAGE_SIZE', regions?.length % PAGE_SIZE);
+
+    if (loading || pageLoading) return;
+    console.log('regions?.length % PAGE_SIZE', regions?.length % PAGE_SIZE);
+
+    const isLoadMore = regions?.length % PAGE_SIZE == 0;
+    if (isLoadMore) {
+      Alert.alert('Loadmore')
+      setPageNumber(prevPageNumber => prevPageNumber + 1);
+      setPageLoading(true);
+    }
   };
+  console.log('pageLoading:::', pageLoading);
 
   const handleSearch = (text: string) => {
     setSearchQuery(text);
   };
 
   const renderItem = ({ item, index }: RegionCardProps) => {
-    return <RegionCard item={item} />;
+    return <RegionCard onPress={() => navigate('Organizations')} item={item} />;
   };
 
   return (
@@ -81,7 +86,7 @@ const Regions = () => {
             data={regions}
             renderItem={renderItem}
             onEndReached={handleLoadMore} // Load more when reaching the end of the list
-            onEndReachedThreshold={0.5} // Load more when the user reaches the last 50% of the list
+            // onEndReachedThreshold={0.5} // Load more when the user reaches the last 50% of the list
             contentContainerStyle={{
               paddingBottom: mvs(20),
               paddingHorizontal: mvs(20),
