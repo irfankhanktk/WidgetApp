@@ -35,13 +35,16 @@ const Products = (props: props) => {
   ) => {
     try {
       setDataLoading(true);
+      if (isQueryChanged) {
+        setPageNumber(1);
+      }
       let pageNo = isQueryChanged ? 1 : pageNumber;
       const res = await getProducts(id, pageNo, PAGE_SIZE, searchQuery);
       console.log('loading');
       setProducts(preProducts =>
         pageNo > 1
           ? {
-            ...preProducts,
+            ...res,
             list: preProducts?.list
               ? [...preProducts?.list, ...res?.list]
               : [...res?.list],

@@ -8,7 +8,7 @@ import styles from './styles';
 import {colors} from 'config/colors';
 import {SearchInput} from 'components/atoms/inputs';
 import {PrimaryButton} from 'components/atoms/buttons';
-import {navigate} from 'navigation/navigation-ref';
+import {goBack, navigate} from 'navigation/navigation-ref';
 import AppHeader from 'components/atoms/headers/app-header';
 import {Row} from 'components/atoms/row';
 import {UTILS} from 'utils';
@@ -54,6 +54,7 @@ const ProductDetails = props => {
             setDeleteLoading(true);
             const res = await onDeleteProduct(id);
             Alert.alert('Delete', 'You have deleted a product successfully');
+            goBack();
           } catch (error) {
             console.log('error:::', UTILS.returnError(error));
             Alert.alert('Error', UTILS.returnError(error));

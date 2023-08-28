@@ -34,6 +34,9 @@ const Organizations = (props: props) => {
     setDataLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
     try {
+      if (isQueryChanged) {
+        setPageNumber(1);
+      }
       setDataLoading(true);
       let pageNo = isQueryChanged ? 1 : pageNumber;
       const res = await getOrganizations(id, pageNo, PAGE_SIZE, searchQuery);
@@ -41,7 +44,7 @@ const Organizations = (props: props) => {
       setOrganizations(preOrganizations =>
         pageNo > 1
           ? {
-            ...preOrganizations,
+            ...res,
             list: preOrganizations?.list
               ? [...preOrganizations?.list, ...res?.list]
               : [...res?.list],

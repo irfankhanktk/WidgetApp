@@ -25,29 +25,45 @@ const Regions = (props: props) => {
   const [pageNumber, setPageNumber] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const fetchRegions = async (isQueryChanged: boolean, setDataLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
+  const fetchRegions = async (
+    isQueryChanged: boolean,
+    setDataLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
     try {
+      if (isQueryChanged) {
+        setPageNumber(1);
+      }
       setDataLoading(true);
-      let pageNo = isQueryChanged ? 1 : pageNumber
+      let pageNo = isQueryChanged ? 1 : pageNumber;
       const res = await getRegions(pageNo, PAGE_SIZE, searchQuery);
       console.log('loading');
-      setRegions(prevRegions => pageNo > 1 ? { ...prevRegions, list: prevRegions?.list ? [...prevRegions?.list, ...res?.list] : [...res?.list] } : res);
+      setRegions(prevRegions =>
+        pageNo > 1
+          ? {
+            ...res,
+            list: prevRegions?.list
+              ? [...prevRegions?.list, ...res?.list]
+              : [...res?.list],
+          }
+          : res
+      );
     } catch (error) {
       console.log('Error in getRegions====>', error);
-      Alert.alert('Region Error', UTILS.returnError(error))
+      Alert.alert('Region Error', UTILS.returnError(error));
     } finally {
       setDataLoading(false);
     }
   };
 
   useEffect(() => {
-    if (pageNumber > 1) { fetchRegions(false, setPageLoading); }
+    if (pageNumber > 1) {
+      fetchRegions(false, setPageLoading);
+    }
   }, [pageNumber]);
 
   useEffect(() => {
     fetchRegions(true, setLoading);
   }, []);
-
 
   const handleLoadMore = () => {
     const lastPage = Math.ceil((regions?.totalRecords || 0) / PAGE_SIZE);
@@ -63,7 +79,12 @@ const Regions = (props: props) => {
   };
 
   const renderItem = ({ item, index }: RegionCardProps) => {
-    return <RegionCard onPress={() => navigate('Organizations', { id: item?.id })} item={item} />;
+    return (
+      <RegionCard
+        onPress={() => navigate('Organizations', { id: item?.id })}
+        item={item}
+      />
+    );
   };
 
   return (
@@ -74,11 +95,19 @@ const Regions = (props: props) => {
       ) : (
         <View style={{ flex: 1 }}>
           <View style={{ paddingHorizontal: mvs(20) }}>
-            <SearchInput onSubmitEditing={() => fetchRegions(true, setLoading)} value={searchQuery} onChangeText={handleSearch} placeholder="Search Regions" />
+            <SearchInput
+              onSubmitEditing={() => fetchRegions(true, setLoading)}
+              value={searchQuery}
+              onChangeText={handleSearch}
+              placeholder="Search Regions"
+            />
           </View>
           <CustomFlatList
             refreshControl={
-              <RefreshControl refreshing={refreshing} onRefresh={() => fetchRegions(true, setRefreshing)} />
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={() => fetchRegions(true, setRefreshing)}
+              />
             }
             data={regions?.list || []}
             renderItem={renderItem}
@@ -90,7 +119,6 @@ const Regions = (props: props) => {
             }}
             ListFooterComponent={pageLoading ? <Loader /> : <></>}
           />
-
         </View>
       )}
     </View>
